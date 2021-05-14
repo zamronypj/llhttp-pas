@@ -13,6 +13,12 @@ interface
 {$MODE OBJFPC}
 {$PACKRECORDS C}
 
+uses
+
+    {$IFDEF UNIX}
+    unixtype;
+    {$ENDIF}
+
 const
 
     {$IFDEF WINDOWS}
