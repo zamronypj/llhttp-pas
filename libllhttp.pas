@@ -161,8 +161,13 @@ type
     llhttp_t = llhttp__internal_t;
     pllhttp_t = ^llhttp_t;
 
-    llhttp_data_cb = function(parser : pllhttp_t; at : pansichar; length : size_t) : integer;
-    llhttp_cb = function(parser : pllhttp_t) : integer;
+    llhttp_data_cb = function(
+        parser : pllhttp_t;
+        at : pansichar;
+        length : size_t
+    ) : integer; cdecl;
+
+    llhttp_cb = function(parser : pllhttp_t) : integer; cdecl;
 
     llhttp_settings_t = record
         (* Possible return values 0, -1, `HPE_PAUSED` *)
