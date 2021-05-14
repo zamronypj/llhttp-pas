@@ -19,12 +19,19 @@ var
     settings : llhttp_settings_t;
     request : string;
     err : llhttp_errno_t;
+
+function handle_on_message_complete(parser : pllhttp_t) : integer; cdecl;
+begin
+    writeln('ok');
+    result := 0;
+end;
+
 begin
     (* Initialize user callbacks and settings *)
     llhttp_settings_init(@settings);
 
     (* Set user callback *)
-    settings.on_message_complete := handle_on_message_complete;
+    settings.on_message_complete := @handle_on_message_complete;
 
     (* Initialize the parser in HTTP_BOTH mode, meaning that it will select between
      * HTTP_REQUEST and HTTP_RESPONSE parsing automatically while reading the first
