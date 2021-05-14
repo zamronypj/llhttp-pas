@@ -40,7 +40,7 @@ begin
     llhttp_init(@parser, HTTP_BOTH, @settings);
 
     (* Parse request! *)
-    request := 'GET / HTTP/1.1' + LINEENDING + LINEENDING;
+    request := 'GET / HTTP/1.1' + LineEnding + LineEnding;
 
     err := llhttp_execute(@parser, pansichar(request), length(request));
     if (err = HPE_OK) then
