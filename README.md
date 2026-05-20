@@ -5,14 +5,31 @@ This is [Free Pascal](https://www.freepascal.org) header translation for [llhttp
 
 It is currently work in progress and not fully tested.
 
+## Building llhttp
+
+
+Clone [llhtp git repository](https://github.com/nodejs/llhttp).
+Make sure you have Clang, Node.js and NPM installed in your system.
+Change directory to llhttp source directory.
+
+Run
+
+```
+$ npm ci && make
+```
+
+If build is successful, `libllhttp.a` and `libllhttp.so` are created  in `build` directory inside llhttp source dir. This unit translation links static library so does not use `libllhttp.so`.
+
 ## Usage
+
+Copy `libllhttp.a` and `llhttp.pas` to your project.
 
 ```
 {$MODE OBJFPC}
 {$H+}
 
 uses
-    libllhttp;
+    llhttp;
 
 var
     parser : llhttp_t;
@@ -52,5 +69,3 @@ begin
     end;
 end.
 ```
-
-##
