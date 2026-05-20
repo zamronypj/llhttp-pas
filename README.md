@@ -9,7 +9,8 @@ It is currently work in progress and not fully tested.
 
 
 Clone [llhtp git repository](https://github.com/nodejs/llhttp).
-Make sure you have Clang, Node.js and NPM installed in your system.
+Make sure you have Clang, Node.js and NPM installed in your system. These are requirements for building llhttp, not llhttp-pas.
+
 Change directory to llhttp source directory.
 
 Run
