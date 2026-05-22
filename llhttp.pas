@@ -26,6 +26,9 @@ unit llhttp;
 
 interface
 
+uses
+    ctypes;
+
 {$LinkLib llhttp}
 
 const
@@ -355,7 +358,7 @@ in define line 539 *)
     llhttp_t = llhttp__internal_t;
     pllhttp_t = ^llhttp_t;
 
-    llhttp_data_cb = function (_para1: pllhttp_t; const at: PAnsichar; length: qword) : longint; cdecl;
+    llhttp_data_cb = function (_para1: pllhttp_t; const at: PAnsichar; length: size_t) : longint; cdecl;
 
     llhttp_cb = function (_para1: pllhttp_t) : longint; cdecl;
 
