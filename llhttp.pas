@@ -33,7 +33,7 @@ uses
     unixtype
     {$ENDIF};
 
-{$LinkLib llhttp}
+{$LinkLib libllhttp.a}
 
 const
     LLHTTP_VERSION_MAJOR = 9;
