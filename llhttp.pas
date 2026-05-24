@@ -27,7 +27,11 @@ unit llhttp;
 interface
 
 uses
-    ctypes;
+
+    ctypes,
+    {$IFDEF UNIX}
+    unixtype
+    {$ENDIF};
 
 {$LinkLib llhttp}
 
