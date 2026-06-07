@@ -341,24 +341,6 @@ type
     pllhttp_status_t = ^llhttp_status_t;
 
 
-(* error
-  XX(1, INTERNAL, INTERNAL) \
-in define line 332 *)
-(* error
-  XX(1, GET, GET) \
-in define line 370 *)
-(* error
-  XX(3, POST, POST) \
-in define line 387 *)
-(* error
-  XX(1, GET, GET) \
-in define line 437 *)
-(* error
-  XX(101, SWITCHING_PROTOCOLS, SWITCHING_PROTOCOLS) \
-in define line 539 *)
-
-  type
-
     llhttp_t = llhttp__internal_t;
     pllhttp_t = ^llhttp_t;
 
