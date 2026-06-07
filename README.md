@@ -3,10 +3,7 @@
 ## What is this
 This is [Free Pascal](https://www.freepascal.org) header translation for [llhttp](https://llhttp.org) library.
 
-It is currently work in progress and not fully tested.
-
 ## Building llhttp
-
 
 Clone [llhtp git repository](https://github.com/nodejs/llhttp).
 Make sure you have Clang, Node.js and NPM installed in your system. These are requirements for building llhttp, not llhttp-pas.
