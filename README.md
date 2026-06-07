@@ -16,7 +16,7 @@ Run
 $ npm ci && make
 ```
 
-If build is successful, `libllhttp.a` and `libllhttp.so` are created  in `build` directory inside llhttp source dir. This unit translation links static library so does not use `libllhttp.so`.
+If build is successful, `libllhttp.a` and `libllhttp.so` are created in `build` directory inside llhttp source dir. This unit translation links static library so does not use `libllhttp.so`.
 
 ## Usage
 
@@ -30,7 +30,7 @@ uses
     llhttp;
 
 var
-    parser : llhttp_t;
+    gparser : llhttp_t;
     settings : llhttp_settings_t;
     request : string;
     err : llhttp_errno_t;
@@ -41,27 +41,32 @@ begin
     result := 0;
 end;
 
-function on_url(parser: pllhttp_t; const at: pansichar; length: size_t): integer; cdecl;
-var url: string;
+function on_message_begin(parser: pllhttp_t): integer; cdecl;
 begin
-    url := copy(at, length);
+    writeln('parse start');
+    result := 0;
+end;
+
+function on_url(parser: pllhttp_t; const at: PAnsiChar; length: size_t): integer; cdecl;
+var url: ansistring;
+begin
+    url := copy(at, 1, length);
     writeln('on_url: ', url);
     result:= 0;
 end;
 
-
-function on_header_field(parser: pllhttp_t; const at:pansichar; length: size_t): integer; cdecl;
-var header_field: string;
+function on_header_field(parser: pllhttp_t; const at : PAnsiChar; length: size_t): integer; cdecl;
+var header_field: ansistring;
 begin
-    header_field := copy(at, length);
+    header_field := copy(at, 1, length);
     writeln('head field: ', header_field);
     result := 0;
 end;
 
-function on_header_value(parser: pllhttp_t; const at:pansichar; length: size_t): integer; cdecl;
-var header_value: string;
+function on_header_value(parser: pllhttp_t; const at : PAnsiChar; length: size_t): integer; cdecl;
+var header_value: ansistring;
 begin
-    header_value := copy(at, length);
+    header_value := copy(at, 1, length);
     writeln('head value: ', header_value);
     result := 0;
 end;
@@ -70,22 +75,22 @@ function on_headers_complete(parser: pllhttp_t): integer; cdecl;
 begin
     writeln('on_headers_complete, major: ', parser^.http_major,
       ' minor: ', parser^.http_minor,
-      'keep-alive: ', llhttp_should_keep_alive(parser),
-      'upgrade: ', parser^.upgrade);
+      ' keep-alive: ', llhttp_should_keep_alive(parser),
+      ' upgrade: ', parser^.upgrade);
     result := 0;
 end;
 
 function on_body(parser: pllhttp_t; const at: PAnsichar; length: size_t): integer; cdecl;
 var body: string;
 begin
-    body := copy(at, length);
+    body := copy(at, 1, length);
     writeln('on body: ', body);
     result := 0;
 end;
 
-function handle_on_message_complete(parser : pllhttp_t) : integer; cdecl;
+function on_message_complete(parser: pllhttp_t): integer; cdecl;
 begin
-    writeln('ok');
+    writeln('on_message_complete');
     result := 0;
 end;
 
@@ -106,12 +111,12 @@ begin
      * HTTP_REQUEST and HTTP_RESPONSE parsing automatically while reading the first
      * input.
      *)
-    llhttp_init(@parser, HTTP_BOTH, @settings);
+    llhttp_init(@gparser, HTTP_BOTH, @settings);
 
     (* Parse request! *)
     request := 'GET / HTTP/1.1' + #13#10 + #13#10;
 
-    err := llhttp_execute(@parser, pansichar(request), length(request));
+    err := llhttp_execute(@gparser, pansichar(request), length(request));
     if (err = HPE_OK) then
     begin
         (* Successfully parsed! *)
